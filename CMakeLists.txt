@@ -121,7 +121,7 @@ include_directories(src/include)
 # add_dependencies(turtlesim_cleaner ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-add_executable(turtle_sketcher_node src/sketcher.cpp src/math2d.cpp)
+add_executable(turtle_sketcher_node src/sketcher.cpp src/math2d.cpp src/parser.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above

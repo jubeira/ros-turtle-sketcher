@@ -1,6 +1,10 @@
 #include "ros/ros.h"
 #include "geometry_msgs/Twist.h"
 #include "turtlesim/Pose.h"
+#include "turtlesim/Spawn.h"
+#include "turtlesim/Kill.h"
+#include "turtlesim/TeleportAbsolute.h"
+
 #include <iostream>
 #include "math2d.hpp"
 
@@ -13,7 +17,7 @@ struct ts_point {
 	double y;
 };
 
-vector<ts_point> points = {{10, 10}, {1, 10}, {1, 1}, {10, 1}};
+//vector<ts_point> points = {{10, 10}, {1, 10}, {1, 1}, {10, 1}};
 
 ros::Publisher velocity_publisher;
 ros::Subscriber pose_subscriber;
@@ -30,14 +34,57 @@ void aimToGoal(turtlesim::Pose& goal_pose, double ang_tol);
 
 void poseCallback(const turtlesim::Pose::ConstPtr& pose_msg);
 
+extern bool parseFile(string fileName, vector<double>& points);
+
 int main(int argc, char** argv)
 {
+	if (argc != 2) {
+		cout << "Bad arguments" << endl;
+		return -1;
+	}
+
+	vector<double> points;
+
+	if (parseFile(argv[1], points) == false) {
+		cout << "Error opening file" << endl;
+		return -1;
+	}
+
 	ros::init(argc, argv, "robot_cleaner");
 	ros::NodeHandle n;
 
 	pose_subscriber = n.subscribe("/turtle1/pose", 10, poseCallback);
 	velocity_publisher = n.advertise<geometry_msgs::Twist>("/turtle1/cmd_vel", 10);
+/*
+	ros::ServiceClient killClient = n.serviceClient<turtlesim::Kill>("kill");
 
+	turtlesim::Kill ksrv;
+
+	ksrv.request.name = "turtle1";
+
+	if (killClient.call(ksrv) == false) {
+		cout << "couldnt kill turtle" << endl;
+	}
+
+	cout << "response: " << ksrv.response << endl;
+
+	ros::ServiceClient spawnClient = n.serviceClient<turtlesim::Spawn>("spawn");
+
+	turtlesim::Spawn srv;
+
+	srv.request.x = 2;
+	srv.request.y = 2;
+	srv.request.theta = 1.57;
+
+	spawnClient.call(srv);
+
+	cout << "new spawned name:" << srv.response.name << endl;
+
+	ksrv.request.name = srv.response.name;
+	killClient.call(ksrv);
+
+	cout << "turtle 2 kill attempt: " << ksrv.response << endl;
+*/
 	ros::Rate loop_rate(100);
 
 	while (!subscribed)
@@ -50,8 +97,9 @@ int main(int argc, char** argv)
 
 	for(auto it = points.begin(); it != points.end(); ++it) {
 		turtlesim::Pose pose;
-		pose.x = it->x;
-		pose.y = it->y;
+		pose.x = *it;
+		++it;
+		pose.y = *it;
 		aimAndMove(pose, 0.01);
 	}
 
