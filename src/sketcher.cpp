@@ -7,10 +7,17 @@
 
 using namespace std;
 
+/*
+ * Global definitions
+ */
 ros::Publisher velocity_publisher;
 ros::Subscriber pose_subscriber;
 turtlesim::Pose turtlesim_pose;
 bool subscribed = false;
+
+/*
+ * Function prototypes
+ */
 
 void move(double speed, double distance, bool isForward);
 void rotate(double angular_speed, double relative_angle, bool clockwise);
@@ -18,11 +25,13 @@ void setDesiredOrientation(double desired_angle_rad);
 void moveToGoal(turtlesim::Pose& goal_pose, double dist_tol);
 void aimAndMove(turtlesim::Pose& goal_pose, double dist_tol, double line_straightness_tol = 0.0001);
 void aimToGoal(turtlesim::Pose& goal_pose, double ang_tol);
-
-
 void poseCallback(const turtlesim::Pose::ConstPtr& pose_msg);
 
 extern bool parseFile(string fileName, vector<double>& points);
+
+/*
+ * Application
+ */
 
 int main(int argc, char** argv)
 {
@@ -55,9 +64,6 @@ int main(int argc, char** argv)
 	turtlesim::Pose initialPose;
 	initialPose.x = points[0];
 	initialPose.y = points[1];
-//	initialPose.theta = 0;
-//	initialPose.angular_velocity = 0;
-//	initialPose.linear_velocity = 0;
 
 	tsrv::spawn(n, initialPose, turtleName);
 
@@ -87,7 +93,13 @@ int main(int argc, char** argv)
 	return 0;
 }
 
-
+/**
+ * rotate
+ * Makes global turtle move along its X axis at a certain speed for a specified distance. No tolerance specified.
+ * @param speed Movement speed (x).
+ * @param distance Distance to travel.
+ * @param isForward Movement direction.
+ */
 
 void move(double speed, double distance, bool isForward)
 {
@@ -122,6 +134,14 @@ void move(double speed, double distance, bool isForward)
 	velocity_publisher.publish(vel_msg);
 
 }
+
+/**
+ * rotate
+ * Makes global turtle rotate a relative angle at a certain speed. No tolerance specified.
+ * @param angular_speed Rotation speed.
+ * @param relative_angle Angle of rotation (relative to starting angle).
+ * @param clockwise Rotation direction.
+ */
 
 void rotate(double angular_speed, double relative_angle, bool clockwise)
 {
@@ -158,6 +178,12 @@ void rotate(double angular_speed, double relative_angle, bool clockwise)
 
 }
 
+/**
+ * setDesiredOrientation
+ * Rotates up to an absolute orientation. No tolerance is specified; use only when precision is not needed.
+ * @param desired_angle_rad Absolute angle.
+ */
+
 void setDesiredOrientation(double desired_angle_rad)
 {
 	double relative_angle_rad = m2d::normalizeAngle(desired_angle_rad - m2d::normalizeAngle(turtlesim_pose.theta));
@@ -166,6 +192,13 @@ void setDesiredOrientation(double desired_angle_rad)
 	cerr << desired_angle_rad << ", " << turtlesim_pose.theta << ", " << relative_angle_rad << endl;
 	rotate(abs(relative_angle_rad), abs(relative_angle_rad), clockwise);
 }
+
+/**
+ * aimAndMove
+ * Moves global turtle to goal_pose using a proportional controller.
+ * @param goal_pose Target pose to reach (x, y only).
+ * @param dist_tol Distance tolerance allowed to target pose.
+ */
 
 void moveToGoal(turtlesim::Pose& goal_pose, double dist_tol)
 {
@@ -203,6 +236,14 @@ void moveToGoal(turtlesim::Pose& goal_pose, double dist_tol)
 
 }
 
+/**
+ * /**
+ * aimToGoal
+ * Makes global turtle face the target point.
+ * @param goal_pose Target pose to reach (x, y only).
+ * @param ang_tol Angle tolerance when facing target point (in radians).
+ */
+
 void aimToGoal(turtlesim::Pose& goal_pose, double ang_tol)
 {
 	geometry_msgs::Twist vel_msg;
@@ -232,6 +273,10 @@ void aimToGoal(turtlesim::Pose& goal_pose, double ang_tol)
 
 }
 
+/**
+ * poseCallback
+ * Updates global turtle's pose.
+ */
 
 void poseCallback(const turtlesim::Pose::ConstPtr& pose_msg)
 {
@@ -240,6 +285,14 @@ void poseCallback(const turtlesim::Pose::ConstPtr& pose_msg)
 	turtlesim_pose.y = pose_msg->y;
 	turtlesim_pose.theta = pose_msg->theta;
 }
+
+/**
+ * aimAndMove
+ * Moves global turtle to goal_pose in a straight line, facing the target point before moving.
+ * @param goal_pose Target pose to reach (x, y only)
+ * @param dist_tol Distance tolerance allowed to target pose.
+ * @param line_straightness_tol Angle tolerance when facing target point (in radians).
+ */
 
 void aimAndMove(turtlesim::Pose& goal_pose, double dist_tol, double line_straightness_tol)
 {

@@ -5,6 +5,13 @@
 
 using namespace std;
 
+/*
+ * parseFile
+ * Parses point file: two floating point numbers per line, ASCII, separated by a space.
+ * @param fileName Filename to parse.
+ * @param points Vector to fill
+ */
+
 bool parseFile(string fileName, vector<double>& points)
 {
 	ifstream in(fileName);

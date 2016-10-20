@@ -1,0 +1,3 @@
+Figures are plain text files, with two floating point numbers per line separated by a space.
+All the points should be in the range [0 - 11.5] to work properly with turtlesim's 2D plane: they are used without scaling.
+Each file shall contain at least 4 numbers in two lines (two points that represent a line).

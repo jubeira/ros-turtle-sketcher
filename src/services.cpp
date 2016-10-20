@@ -7,6 +7,14 @@ using namespace std;
 
 namespace tsrv {
 
+/**
+ * kill
+ * Kills a target turtle from turtleSim.
+ * @param n NodeHandle reference.
+ * @param name Target turtle to vanish.
+ * @return true if successful, false if not.
+ */
+
 bool kill(ros::NodeHandle& n, string name)
 {
 
@@ -18,6 +26,15 @@ bool kill(ros::NodeHandle& n, string name)
 
 	return killClient.call(ksrv);
 }
+
+/**
+ * spawn
+ * Makes a new turtle at target pose.
+ * @param n NodeHandle reference
+ * @param pose Pose where turtle will appear.
+ * @param name Name of the turtle to create.
+ * @return New turtle's name.
+ */
 
 string spawn(ros::NodeHandle& n, turtlesim::Pose& pose, string name)
 {
@@ -34,37 +51,5 @@ string spawn(ros::NodeHandle& n, turtlesim::Pose& pose, string name)
 
 	return srv.response.name;
 }
-
-
-/*
-	ros::ServiceClient killClient = n.serviceClient<turtlesim::Kill>("kill");
-
-	turtlesim::Kill ksrv;
-
-	ksrv.request.name = "turtle1";
-
-	if (killClient.call(ksrv) == false) {
-		cout << "couldnt kill turtle" << endl;
-	}
-
-	cout << "response: " << ksrv.response << endl;
-
-	ros::ServiceClient spawnClient = n.serviceClient<turtlesim::Spawn>("spawn");
-
-	turtlesim::Spawn srv;
-
-	srv.request.x = 2;
-	srv.request.y = 2;
-	srv.request.theta = 1.57;
-
-	spawnClient.call(srv);
-
-	cout << "new spawned name:" << srv.response.name << endl;
-
-	ksrv.request.name = srv.response.name;
-	killClient.call(ksrv);
-
-	cout << "turtle 2 kill attempt: " << ksrv.response << endl;
-*/
 
 }
