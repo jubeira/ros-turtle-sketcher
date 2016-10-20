@@ -31,7 +31,15 @@ var y1 = null;
 var x2 = null;
 var y2 = null;
 
-listener.subscribe(function(message) {
+
+
+listener.subscribe(reportAndDraw);
+
+function correctYCoord(y) {
+    return 11 - y;
+}
+
+function reportAndDraw(message) {
 console.log('Received message on ' + listener.name + ': ' + message.x + ", " + message.y);
 
 	x2 = x1;
@@ -39,9 +47,16 @@ console.log('Received message on ' + listener.name + ': ' + message.x + ", " + m
 	x1 = message.x;	
 	y1 = message.y;
 	sketch(x1, correctYCoord(y1), x2, correctYCoord(y2), 60);
+}
 
-});
 
-function correctYCoord(y) {
-    return 11 - y;
+function updateListener(reportAndDraw) {
+    var turtleName = document.getElementById("turtleName").value;
+    console.log("Old listener name: " + listener.name + "\n")
+
+    listener.unsubscribe();
+    listener.name = '/' + turtleName + '/pose';
+    listener.subscribe(reportAndDraw);
+
+    console.log("New listener name: " + listener.name + "\n")
 }

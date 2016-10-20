@@ -12,10 +12,11 @@
 <body>
   <h1 style="font-family: monospace;">Web sketcher</h1>
   <p style="font-family: monospace;">Check your Web Console for robot simulator position.</p>
+	<label for="spikes" style="font-family: monospace;">Turtle name: </label><input type="text" id="turtleName" value="turtle1">
+  <button onclick="updateListener()">Set Name</button>
 
 <div style="position: relative; left: 0; top: 0 display: inline-block; width: 660px; height: 660px;">
-	<canvas id="canvas" width=660 height=660 background-color: "ivory" style="position: relative; top: 0; left: 0;">
-</canvas>
+	<canvas id="canvas" width=660 height=660 background-color: "ivory" style="position: relative; top: 0; left: 0;"></canvas>
 </div>
 <script type="text/javascript" src="sketcher.js"> </script>
 </body>
