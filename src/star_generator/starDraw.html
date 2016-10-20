@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<script>
+function updateCanvas() {
+    var sp = document.getElementById("spikes").value;
+    var outr = document.getElementById("outer").value;
+    var inr = document.getElementById("inner").value;
+
+    drawStar(550, 550, sp, outr, inr);
+}
+</script>
+
+</head>
+<body>
+
+<label for="spikes">Spikes: </label>
+<input type="number" id="spikes" value=4>
+<label for="outer">Outer radius: </label>
+<input type="number" id="outer" value=500>
+<label for="inner">Inner radius: </label>
+<input type="number" id="inner" value=175>
+
+<p>Click the button to draw a star. Check your console for (x,y) coordinates (Turtlesim compatible).</p>
+
+<button onclick="updateCanvas()">Draw Star!</button>
+
+<p id="demo"></p>
+
+
+<canvas id="canvas" width=1200 height=1200 background-color: "ivory"></canvas>
+
+<script src="starDraw.js"> </script>
+</body>
+</html>
+
+
+
