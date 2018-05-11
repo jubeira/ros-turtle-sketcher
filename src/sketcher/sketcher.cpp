@@ -1,7 +1,7 @@
 #include "geometry_msgs/Twist.h"
 #include <iostream>
-#include "math2d.hpp"
-#include "services.hpp"
+#include "sketcher/math2d.hpp"
+#include "sketcher/services.hpp"
 
 #define STD_TURTLE_NAME "turtle1"
 

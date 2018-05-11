@@ -4,7 +4,6 @@ project(turtle_sketcher)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED)
 
 ## System dependencies are found with CMake's conventions
 find_package(catkin REQUIRED COMPONENTS
@@ -96,7 +95,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
+  INCLUDE_DIRS include
 #  LIBRARIES turtlesim_cleaner
   CATKIN_DEPENDS roscpp rospy std_msgs geometry_msgs message_runtime
 #  DEPENDS system_lib
@@ -108,7 +107,7 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-include_directories(src/include)
+include_directories(${catkin_INCLUDE_DIRS} include)
 
 ## Declare a C++ library
 # add_library(turtlesim_cleaner
@@ -121,7 +120,7 @@ include_directories(src/include)
 # add_dependencies(turtlesim_cleaner ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-add_executable(turtle_sketcher_node src/sketcher.cpp src/math2d.cpp src/parser.cpp src/services.cpp)
+add_executable(turtle_sketcher_node src/sketcher/sketcher.cpp src/sketcher/math2d.cpp src/sketcher/parser.cpp src/sketcher/services.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
