@@ -8,5 +8,5 @@ Sketcher node.
 ## [browser_sketcher](https://github.com/jubeira/ros-turtle-sketcher/tree/master/src/browser_sketcher)
 A simple HTML to view the Sketcher's activity in a web browser.
 
-## [star_generator] (https://github.com/jubeira/ros-turtle-sketcher/tree/master/src/star_generator)
+## [star_generator](https://github.com/jubeira/ros-turtle-sketcher/tree/master/src/star_generator)
 A simple HTML to generate figures/ obtain new files.
