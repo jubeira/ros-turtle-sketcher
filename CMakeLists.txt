@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
 	std_msgs
 	geometry_msgs
 	message_generation
+    turtlesim
 )
 
 ################################################
@@ -97,7 +98,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
   INCLUDE_DIRS include
 #  LIBRARIES turtlesim_cleaner
-  CATKIN_DEPENDS roscpp rospy std_msgs geometry_msgs message_runtime
+  CATKIN_DEPENDS roscpp rospy std_msgs geometry_msgs message_runtime turtlesim
 #  DEPENDS system_lib
 )
 
