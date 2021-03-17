@@ -13,6 +13,7 @@ Then, create a catkin workspace and clone the repository inside:
 ```
 mkdir -p ros_turtle_sketcher_ws/src
 git clone https://github.com/jubeira/ros-turtle-sketcher ros_turtle_sketcher_ws/src
+cd ros_turtle_sketcher_ws
 catkin_make
 ```
 
