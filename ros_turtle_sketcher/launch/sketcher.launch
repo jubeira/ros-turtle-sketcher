@@ -1,0 +1,6 @@
+<launch>
+  <arg name="figure_file" default="$(find turtle_sketcher)/figures/star12"/>
+
+  <node pkg="turtlesim" name="sim" type="turtlesim_node"/>
+  <node pkg="turtle_sketcher" name="sketcher" type="turtle_sketcher_node" args="$(arg figure_file)"/>
+</launch>

@@ -1,3 +1,5 @@
+#include <ros/duration.h>
+
 #include "geometry_msgs/Twist.h"
 #include <iostream>
 #include "sketcher/math2d.hpp"
@@ -35,15 +37,17 @@ extern bool parseFile(string fileName, vector<double>& points);
 
 int main(int argc, char** argv)
 {
+	ros::init(argc, argv, "turtle_sketcher");
+
 	if (argc != 2) {
-		cout << "Bad arguments" << endl;
+		cout << "Bad arguments; argc: " << argc << endl;
 		return -1;
 	}
 
 	vector<double> points;
 
 	if (parseFile(argv[1], points) == false) {
-		cout << "Error opening file" << endl;
+		cout << "Error opening file " << argv[1] << endl;
 		return -1;
 	}
 
@@ -54,12 +58,12 @@ int main(int argc, char** argv)
 		return -1;
 	}
 
-	ros::init(argc, argv, "turtle_sketcher");
 	ros::NodeHandle n;
-
 	string turtleName = STD_TURTLE_NAME;
 
-	tsrv::kill(n, turtleName);
+	ros::service::waitForService("/kill", ros::Duration(2.0));
+	bool result = tsrv::kill(n, turtleName);
+	cout << "Turtle kill result: " << result << endl;
 
 	turtlesim::Pose initialPose;
 	initialPose.x = points[0];
