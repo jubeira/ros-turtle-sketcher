@@ -22,33 +22,33 @@ void print_state (const std::ifstream& stream) {
  */
 bool parseFile(string fileName, vector<double>& points)
 {
-	cout << "Parsing file: " << fileName << endl;
-	ifstream in;
-	in.open(fileName, ifstream::in);
+    cout << "Parsing file: " << fileName << endl;
+    ifstream in;
+    in.open(fileName, ifstream::in);
 
-	if (!in.good()) {
-		cerr << "File not OK" << endl;
-		print_state(in);
-		return false;
-	}
+    if (!in.good()) {
+        cerr << "File not OK" << endl;
+        print_state(in);
+        return false;
+    }
 
-	vector<string> lines;
+    vector<string> lines;
 
-	for (string line; getline(in, line);) {
-		lines.push_back(line);
-	}
+    for (string line; getline(in, line);) {
+        lines.push_back(line);
+    }
 
-	string::size_type sz;
+    string::size_type sz;
 
-	try {
-		for (auto a : lines) {
-			points.push_back(stod(a, &sz));
-			points.push_back(stod(a.substr(sz)));
-		}
-	}
-	catch (exception e){
-		return false;
-	}
+    try {
+        for (auto a : lines) {
+            points.push_back(stod(a, &sz));
+            points.push_back(stod(a.substr(sz)));
+        }
+    }
+    catch (exception e){
+        return false;
+    }
 
-	return true;
+    return true;
 }

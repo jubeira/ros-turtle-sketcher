@@ -2,7 +2,7 @@ var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
 function drawStar(cx, cy, spikes, outerRadius, innerRadius) {
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     var rot = Math.PI / 2 * 3;
     var x = cx;
     var y = cy;
@@ -23,7 +23,7 @@ function drawStar(cx, cy, spikes, outerRadius, innerRadius) {
         y = cy + Math.sin(rot) * innerRadius;
         ctx.lineTo(x, y)
         console.log((x /100.0) + " " + ( (1100 - y) / 100.0) + "\n")
-				rot += step
+                rot += step
     }
     ctx.lineTo(cx, cy - outerRadius)
     ctx.closePath();

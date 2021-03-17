@@ -2,7 +2,7 @@ var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
 function sketch(x1, y1, x2, y2, amplify) {
-	
+    
     if (x1 == null || x2 == null) {
         return;
     }

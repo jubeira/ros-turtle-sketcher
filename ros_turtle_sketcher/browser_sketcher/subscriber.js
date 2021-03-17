@@ -1,15 +1,15 @@
 // Connecting to ROS
   // -----------------
 var ros = new ROSLIB.Ros({
-	url : 'ws://localhost:9090'
+    url : 'ws://localhost:9090'
 });
 
 ros.on('connection', function() {
-	console.log('Connected to websocket server.');
+    console.log('Connected to websocket server.');
 });
 
 ros.on('error', function(error) {
-	console.log('Error connecting to websocket server: ', error);
+    console.log('Error connecting to websocket server: ', error);
 });
 
 ros.on('close', function() {
@@ -23,7 +23,7 @@ var listener = new ROSLIB.Topic({
     ros : ros,
     name : '/turtle1/pose',
     messageType : 'turtlesim/Pose',
-	throttle_rate : 200
+    throttle_rate : 200
 });
 
 var x1 = null;
@@ -42,11 +42,11 @@ function correctYCoord(y) {
 function reportAndDraw(message) {
 console.log('Received message on ' + listener.name + ': ' + message.x + ", " + message.y);
 
-	x2 = x1;
-	y2 = y1;
-	x1 = message.x;	
-	y1 = message.y;
-	sketch(x1, correctYCoord(y1), x2, correctYCoord(y2), 60);
+    x2 = x1;
+    y2 = y1;
+    x1 = message.x;
+    y1 = message.y;
+    sketch(x1, correctYCoord(y1), x2, correctYCoord(y2), 60);
 }
 
 

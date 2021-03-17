@@ -7,12 +7,12 @@ project(turtle_sketcher)
 
 ## System dependencies are found with CMake's conventions
 find_package(catkin REQUIRED COMPONENTS
-	roscpp
-	rospy
-	std_msgs
-	geometry_msgs
-	message_generation
-	rostime
+    roscpp
+    rospy
+    std_msgs
+    geometry_msgs
+    message_generation
+    rostime
     turtlesim
 )
 

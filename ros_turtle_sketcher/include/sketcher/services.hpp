@@ -13,8 +13,10 @@
 #include "turtlesim/Pose.h"
 
 namespace tsrv {
+
 bool kill(ros::NodeHandle& n, std::string name);
 std::string spawn(ros::NodeHandle& n, turtlesim::Pose& pose, std::string name);
+
 }
 
 #endif /* TURTLE_SKETCHER_SRC_INCLUDE_SERVICES_HPP_ */
